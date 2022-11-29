@@ -53,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	code {
 		font-family: Consolas, Monaco, Courier New, Courier, monospace;
-		font-size: 13px;
+		font-size: 12px;
 		background-color: #f5f5f5;
 		border: 1px solid #e3e3e3;
 		border-radius: 4px;
