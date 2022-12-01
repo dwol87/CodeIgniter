@@ -50,6 +50,6 @@ class News_model extends CI_Model
         );
 
         $this->db->where('news', $data);
-        $this->db->update('$id', $data);
+        $this->db->update('news', $data);
     }
 }
