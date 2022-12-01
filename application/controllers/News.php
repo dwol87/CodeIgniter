@@ -62,21 +62,11 @@ class News extends CI_Controller
 
     public function update($id)
     {
-        $this->load->helper('form');
-        $this->load->library('form_validation');
-
         $data['title'] = 'Update news item';
+        $data['news'] = $this->news_model->update_news_item();
 
-        $this->form_validation->set_rules('title', 'Title', 'required');
-        $this->form_validation->set_rules('text', 'Text', 'required');
-
-        if ($this->form_validation->run() === FALSE) {
-            $this->load->view('templates/header', $data);
-            $this->load->view('news/create', $data);
-            $this->load->view('templates/footer');
-        } else {
-            $this->news_model->update_news_item($id);
-            redirect('news');
-        }
+        $this->load->view('templates/header', $data);
+        $this->load->view('news/update', $data);
+        $this->load->view('templates/footer');
     }
 }

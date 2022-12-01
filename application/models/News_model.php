@@ -41,15 +41,7 @@ class News_model extends CI_Model
 
     public function update_news_item()
     {
-        $slug = url_title($this->input->post('title'), '-', TRUE);
-
-        $data = array(
-            'title' => $this->db->post('title'),
-            'slug' => $slug,
-            'body' => $this->db->post('text')
-        );
-
-        $this->db->where('news', $data);
-        $this->db->update('news', $data);
+        $query = $this->db->get('news');
+        return $query->result();
     }
 }
