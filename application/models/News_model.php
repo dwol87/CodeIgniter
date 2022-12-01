@@ -8,14 +8,14 @@ class News_model extends CI_Model
     }
 
 
-    public function get_news($slug = FALSE)
+    public function get_news($id = FALSE)
     {
-        if ($slug === FALSE) {
+        if ($id === FALSE) {
             $query = $this->db->get('news');
             return $query->result_array();
         }
 
-        $query = $this->db->get_where('news', array('slug' => $slug));
+        $query = $this->db->get_where('news', array('id' => $id));
         return $query->row_array();
     }
 
@@ -39,9 +39,9 @@ class News_model extends CI_Model
         return $this->db->delete('news', array('id' => $id));
     }
 
-    public function update_news_item()
+    public function update_news_item($id, $data)
     {
-        $query = $this->db->get('news');
-        return $query->result();
+        $this->db->where('id', $id);
+        return $this->db->update('news', $data);
     }
 }

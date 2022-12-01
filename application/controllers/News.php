@@ -60,13 +60,32 @@ class News extends CI_Controller
         redirect('news');
     }
 
-    public function update($id)
+    public function update($id = NULL)
     {
-        $data['title'] = 'Update news item';
-        $data['news'] = $this->news_model->update_news_item();
+        $news_item = $this->news_model->get_news($id);
+        // log_message('debug', print_r($data['news_item'], true));
+        log_message('debug', print_r($this->input->post(), true));
+        $this->load->helper('form');
+        $this->load->library('form_validation');
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('news/update', $data);
-        $this->load->view('templates/footer');
+        $data['title'] = 'Create a news item';
+        $data['news_title'] = $news_item['title'];
+        $data['news_body'] = $news_item['body'];
+
+        $this->form_validation->set_rules('title', 'Title', 'required');
+        $this->form_validation->set_rules('text', 'Text', 'required');
+
+        if ($this->form_validation->run() === FALSE) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('news/update', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $update = [
+                'title' => $this->input->post('title'),
+                'body' => $this->input->post('text'),
+            ];
+            $this->news_model->update_news_item($id, $update);
+            redirect('news');
+        }
     }
 }
