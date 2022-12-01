@@ -8,5 +8,9 @@
 
         <h1><?php echo $title; ?></h1>
 
-        <p><a href="<?php echo site_url('news/'); ?>">All News</a></p>
-        <p><a href="<?php echo site_url('news/create/'); ?>">Create News</a></p>
+        <a href="<?php echo site_url('news/'); ?>">
+                <button id="button_all_news">All News</button>
+        </a>
+        <a href="<?php echo site_url('news/create/'); ?>">
+                <button id="button_create">Create News</button>
+        </a>

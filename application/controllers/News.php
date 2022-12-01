@@ -53,4 +53,10 @@ class News extends CI_Controller
             $this->load->view('news/success');
         }
     }
+
+    public function delete($id)
+    {
+        $this->news_model->delete_item($id);
+        redirect('news');
+    }
 }
