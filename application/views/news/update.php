@@ -1,6 +1,10 @@
 <h2><?php echo $title; ?></h2>
 
-<!-- <?php echo validation_errors(); ?> -->
+<?php if ($success) { ?>
+    <div class="alert alert-success" role="alert">
+        <strong>Success!</strong> News item updated.
+    </div>
+<?php } ?>
 
 <?php echo form_open(); ?>
 

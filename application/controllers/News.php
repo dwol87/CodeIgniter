@@ -50,7 +50,9 @@ class News extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $this->news_model->set_news();
+            $this->load->view('templates/header', $data);
             $this->load->view('news/success');
+            $this->load->view('templates/footer');
         }
     }
 
@@ -62,30 +64,28 @@ class News extends CI_Controller
 
     public function update($id = NULL)
     {
-        $news_item = $this->news_model->get_news($id);
-        // log_message('debug', print_r($data['news_item'], true));
-        log_message('debug', print_r($this->input->post(), true));
-        $this->load->helper('form');
-        $this->load->library('form_validation');
+        $data['success'] = false;
 
-        $data['title'] = 'Create a news item';
-        $data['news_title'] = $news_item['title'];
-        $data['news_body'] = $news_item['body'];
-
-        $this->form_validation->set_rules('title', 'Title', 'required');
-        $this->form_validation->set_rules('text', 'Text', 'required');
-
-        if ($this->form_validation->run() === FALSE) {
-            $this->load->view('templates/header', $data);
-            $this->load->view('news/update', $data);
-            $this->load->view('templates/footer');
-        } else {
+        if ($this->input->post()) {
             $update = [
                 'title' => $this->input->post('title'),
                 'body' => $this->input->post('text'),
             ];
             $this->news_model->update_news_item($id, $update);
-            redirect('news');
+            $data['success'] = true;
         }
+
+        $news_item = $this->news_model->get_news($id);
+        // log_message('debug', print_r($data['news_item'], true));
+        // log_message('debug', print_r($this->input->post(), true));
+        $this->load->helper('form');
+
+        $data['title'] = 'Create a news item';
+        $data['news_title'] = $news_item['title'];
+        $data['news_body'] = $news_item['body'];
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('news/update', $data);
+        $this->load->view('templates/footer');
     }
 }
